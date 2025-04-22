@@ -22,7 +22,24 @@ public class PointDto {
 public ResponseEntity<?> createPoint(@Valid @RequestBody PointDto pointDto) {
     // 处理逻辑
 }
+
+@RestControllerAdvice
+public class ExceptionControllerAdvice {
+    @ExceptionHandler(RuntimeException.class)
+    public Result<?> apiExceptionHandler(RuntimeException e) {
+        log.error(e.getMessage(), e);
+        return ResultUtils.error(ResultEnum.ACQ_SYSTEM_ERROR);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Result<?> methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
+        ObjectError objectError = e.getBindingResult().getAllErrors().get(0);
+
+        return ResultUtils.error(ResultEnum.ACQ_INVALID_PARAMETER.getCode(), objectError.getDefaultMessage());
+    }
+}
 ```
 
 ### 4.总结来说
 当验证失败是，默认会返回一个 HTTP 400（Bad Request）响应，但一般定义一个类@ControllerAdvice（注明是异常处理器） ExceptionControllerAdvice，其中为每一个异常类定义对应的异常处理方法
+被@ControllerAdvice注解的类是异常处理类，Controller表明了会对 Controller 层提供全局的建议或增强功能，会对整个应用中所有控制器的请求进行监控，捕获Contoller的异常，并处理 
