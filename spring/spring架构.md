@@ -7,3 +7,5 @@ dao，pojo，mapper文件是一一对应的,dao负责pojo类的所有数据库�
 比如pojo User 有字段有password,总不能直接用User类传递吧，不过后续的数据库操作可能还是要转成pojo，因为pojo才是和数据库表对应的
 ### 3.一次会话或者说请求就是一个线程
 在这种情况下，可以使用ThreadLocal变量来隔离不同线程的值
+### 4.静态资源
+请求静态资源时要在Webmvcconfiguuration中配置静态资源映射，否则路由器会将静态资源url看成动态请求，从而走controller的路由匹配规则，进而找不到匹配得到接口方法
