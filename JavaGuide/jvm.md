@@ -64,3 +64,11 @@
 类加载过程的类符号引用解析（第一部分）： 更侧重于类/接口本身的存在性确认和元数据定位（InstanceKlass）。它是方法/字段解析的前提。它解析的是 CONSTANT_Class_info。
 方法调用时的动态链接（第二部分）： 更侧重于具体字节码指令（尤其是方法调用指令）执行时，定位目标方法（或字段）的直接地址或访问方式。它是运行时执行的关键环节。它解析的是
 CONSTANT_Methodref_info / InterfaceMethodref_info / Fieldref_info，并且这个过程包含了对其中涉及的类符号引用的解析（即第一部分是其子步骤）。
+
+
+### 5.java.lang.Class
+这个 Class 对象是在类加载过程的 加载 (Loading) 阶段之后、初始化 (Initialization) 阶段之前创建的。具体来说：
+加载： JVM 读取 .class 文件字节码。
+创建 InstanceKlass： 在 元空间 (Metaspace) 创建内部的 InstanceKlass 结构，存储类的原始元数据（字节码、常量池、字段/方法元信息等）。
+创建 java.lang.Class 对象： JVM 在 Java 堆 (Heap) 上创建一个 java.lang.Class 对象。
+建立双向关联： JVM 会将 InstanceKlass 中的一个指针指向堆上的 Class 对象（作为 Java 层的表示）。同时，Class 对象内部也持有一个指向对应 InstanceKlass 的指针（通常是 Native 指针，如 jclass 或直接内存地址）。
