@@ -16,5 +16,6 @@ if((msg = br.readLine()) != null)if改为while同时client也改为while就实�
 
 ###### （3）服务端连接多个客户端，引入多线程的机制
 <img width="679" height="384" alt="895c18f389024a13852482d5e6901446" src="https://github.com/user-attachments/assets/29ec1cf2-2172-471e-9616-1e0b41ceea7e" />
-上面没修改过的代码，只能对一个clinetIO,一个客户端连接guo
+上面没修改过的代码，只能对一个clinetIO.一个客户端连接过来，server创建一个thread处理与该客户端的IO任务，性能上的问题见1.写的
+
 ---
