@@ -13,6 +13,7 @@ public synchronized void increment() {
 }
 ```
 效果是一样的，但是推荐使用 synchronized 块，因为它提供了更细粒度的控制，使得在方法中只把可能发生并发冲突的代码加锁，而如果把整个方法加锁，会影响并发的程度
+synchronized只能作用于对象上，synchronized加在成员方法上相当于synchronized (this)，加在静态方法上相当于synchronized (this.class)也就是对该类的类对象加锁
 ### 2.双重校验锁实现对象单例（线程安全）
 ```
 public class Singleton {
