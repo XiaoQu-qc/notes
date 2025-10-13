@@ -28,7 +28,14 @@ if((msg = br.readLine()) != null)if改为while同时client也改为while就实�
 ### 6.可以利用一个socket实现C和S的全双工通信
 <img width="547" height="141" alt="725eb1a4076830371965feeea2ce6f8b" src="https://github.com/user-attachments/assets/a5cd692d-02a0-493a-8ce0-eb2b6fcc023a" />
 
-### 7.问题与解答
+### 7.dos.write和dis.read各自的阻塞原因
+<img width="549" height="279" alt="ec7312f03f56e447b2f3bb2c66497e00" src="https://github.com/user-attachments/assets/2461ecd8-ab94-46cd-873d-2897912a42c9" />
+<img width="589" height="462" alt="48bd31a575581b3f0e3f310cd95760d9" src="https://github.com/user-attachments/assets/c335c6e5-2281-4742-a3d8-340722f548fd" />
+如上图，server端socket 输入流阻塞的原因是TCP receive buffer为空引起的阻塞，client端输出流阻塞的原因是TCP send buffer满
+
+### 8.TCP send buffer 和代码中定义的buffer不是一回事，前者是内核态的buffer，后者是用户态的buffer
+read是从TCP send buffer读到用户态的内存中，write操作相反
+### 8.问题与解答
 User: client端中的while代码块每次阻塞读取满一个buffer后，解除阻塞，-》得到调度重新运行，然后socket输出流把buffer中的数据阻塞写出，此时server端的阻塞的read操作收到了刚刚的bufffer中的内容。。。我说的对吗。在传输整个文件的过程中，阻塞是断断续续的对吗
 Kimi: 你理解的大方向基本正确，但可以更精确一些。下面按“一次循环”把阻塞点、唤醒时机和 CPU 调度关系拆开说：
 
