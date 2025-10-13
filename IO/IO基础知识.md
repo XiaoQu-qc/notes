@@ -26,4 +26,5 @@ if((msg = br.readLine()) != null)if改为while同时client也改为while就实�
 进一步如果server处理某一个clientsocket线程拿到了所有的注册（在线）的client端的socket，它可以通过其他socket的output流转发出去,这就是网络聊天的基本原理
 
 ### 6.可以利用一个socket实现C和S的全双工通信
-![Uploading 725eb1a4076830371965feeea2ce6f8b.png…]()
+<img width="547" height="141" alt="725eb1a4076830371965feeea2ce6f8b" src="https://github.com/user-attachments/assets/a5cd692d-02a0-493a-8ce0-eb2b6fcc023a" />
+
