@@ -35,6 +35,10 @@ if((msg = br.readLine()) != null)if改为while同时client也改为while就实�
 
 ### 8.TCP send buffer 和代码中定义的buffer不是一回事，前者是内核态的buffer，后者是用户态的buffer
 read是从TCP send buffer读到用户态的内存中，write操作相反
+
+### 9.内核read操作
+<img width="441" height="211" alt="79cd39c56242fc835dea2cdd6d276aa8" src="https://github.com/user-attachments/assets/532599a6-27aa-4839-85a5-f09b9b017b77" />
+
 ### 8.问题与解答
 User: client端中的while代码块每次阻塞读取满一个buffer后，解除阻塞，-》得到调度重新运行，然后socket输出流把buffer中的数据阻塞写出，此时server端的阻塞的read操作收到了刚刚的bufffer中的内容。。。我说的对吗。在传输整个文件的过程中，阻塞是断断续续的对吗
 Kimi: 你理解的大方向基本正确，但可以更精确一些。下面按“一次循环”把阻塞点、唤醒时机和 CPU 调度关系拆开说：
