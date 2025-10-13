@@ -19,3 +19,11 @@ if((msg = br.readLine()) != null)if改为while同时client也改为while就实�
 上面没修改过的代码，只能对一个clinetIO.一个客户端连接过来，server创建一个thread处理与该客户端的IO任务，性能上的问题见1.写的
 
 ---
+### 4.为了解决要开启过多线程的问题，引入了线程池来解决，正好线程池的优点得以发挥
+其中可能会涉及到线程的并发，线程池要用单例对象，并且要防止并发重复创建
+
+### 5.BIO模式下的端口转发
+进一步如果server处理某一个clientsocket线程拿到了所有的注册（在线）的client端的socket，它可以通过其他socket的output流转发出去,这就是网络聊天的基本原理
+
+### 6.可以利用一个socket实现C和S的全双工通信
+![Uploading 725eb1a4076830371965feeea2ce6f8b.png…]()
