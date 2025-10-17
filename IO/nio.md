@@ -6,4 +6,4 @@ server端检测到这个事件，就从新的channel中read数据，这里的rea
 注意客户端和server通信的channel是在建立连接的时候加入到selector中的，而不是后续的发送数据的时候
 
 selector.select()可以监听select中注册的所有channel事件，就比如clinet接入这个事件会触发最开始的serversocketchannel
-对应的事件触发对应的channel
+对应的事件触发对应的channel从而能被selector检测到
