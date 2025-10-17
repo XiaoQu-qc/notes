@@ -1,0 +1,5 @@
+### 1.nio的代码原理
+server端首先将专门负责监听client连接的channel注册到socket上，也就是最开始的时候只有这一个channel，触发这一个channel的事件是client端接入，
+那么在此次处理这个事件就将一个新的channerl加入到selector,这个channel代表一个客户端和server通信的channel，如果过段时间这个client发送了消息。这代表了读取事件这一事件类型
+server端检测到这个事件，就从新的channel中read数据，这里的read不会发生阻塞，因为tcp recv buffer有数据。
+注意客户端和server通信的channel是在建立连接的时候加入到selector中的，而不是后续的发送数据的时候
