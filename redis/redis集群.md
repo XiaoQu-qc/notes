@@ -35,3 +35,7 @@ Gossip的消息量与集群规模呈 O(n) 关系：Gossip协议每个周期只�
   
 ### 4.
 <img width="481" height="313" alt="c02477512a941c97799c70b1937c4b35" src="https://github.com/user-attachments/assets/499d931d-d3e8-4147-a210-582d66ffbfc3" />
+
+### 5.clusterNode数据结构
+<img width="448" height="240" alt="image" src="https://github.com/user-attachments/assets/df0e4c45-4407-4e50-aea6-df8d43c18ccc" />
+
