@@ -39,3 +39,25 @@ Gossip的消息量与集群规模呈 O(n) 关系：Gossip协议每个周期只�
 ### 5.clusterNode数据结构
 <img width="448" height="240" alt="image" src="https://github.com/user-attachments/assets/df0e4c45-4407-4e50-aea6-df8d43c18ccc" />
 
+### 6.槽表变更（故障转移、重新分片）会走 集群总线 + epoch 版本号，确保所有节点先达成一致后才会对外生效，因此任一节点给出的 MOVED 信息都全局有效。
+### 7.
+```
+typedef struct clusterState {
+   clusterNode *myself;  /* 当前节点的clusterNode信息 */
+   ....
+   dict *nodes;          /* name到clusterNode的字典 */
+   ....
+   clusterNode *slots[CLUSTER_SLOTS]; /* slot 和节点的对应关系*/
+   ....
+} clusterState;
+
+typedef struct clusterNode {} 这个nodes就是某个redis节点视角下它维护的全局状态
+```
+
+### 8.redis 哨兵架构中，客户端订阅哨兵的switch-master频道感知主节点的切换，那么在redis cluster架构中，redis客户端怎么知道主节点掉线，并且连接到顶替的主节点的呢
+<img width="501" height="394" alt="37ffee230b1cb5ccdadec9c437d258b1" src="https://github.com/user-attachments/assets/a0d26491-d90a-4d29-8597-d46a268477c4" />
+
+### 9.redis客户端和服务器之间建立的tcp连接是长连接吗，redis集群架构下，每次查询对应一个redis节点，那么岂不是要和所有的redis建立tcp长连接？
+
+
+### 10.随机周期性发送PING消息，每次挑选更长时间未收到其 PONG 消息的节点
