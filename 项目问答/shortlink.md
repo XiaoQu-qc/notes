@@ -12,3 +12,6 @@ GOTO_SHORT_LINK_KEY这个跳转的缓存肯定是要删除的，因为如果是�
 同时GOTO_IS_NULL_SHORT_LINK_KEY这个缓存也要删除，如果enablestatus本身为false，紧接着查询一次，(GOTO_IS_NULL_SHORT_LINK_KEY, fullShortUrl缓存就有记录了，我再把enablestatus改为true，如果修改操作不删除缓存，那么接下来还是查询这个fullshort
 
 由这个GOTO_IS_NULL_SHORT_LINK_KEY, fullShortUrl跳转到pagenotefound，而事实上修改过后应该是可以跳转的
+
+### 2.
+修改短链接加分布式写锁，短链接统计加分布式读锁
