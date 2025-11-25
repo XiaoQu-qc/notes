@@ -165,3 +165,12 @@ notEmpty条件：队列非空时唤醒消费者
 (1)提交任务后一般可以直接使用已经在线程池中创建好的线程，无需等待线程创建
 (2)线程池里的线程是可以重复利用的。一旦线程完成了某个任务，它不会立即销毁，而是回到池子里等待下一个任务。这就避免了频繁创建和销毁线程带来的开销。
 (3)提高线程的可管理性，防止内存溢出
+
+### 12.reentranlock和thread join ，wait的关系
+The returned {@link Condition} instance supports the same
+     * usages as do the {@link Object} monitor methods ({@link
+     * Object#wait() wait}, {@link Object#notify notify}, and {@link
+     * Object#notifyAll notifyAll}) when used with the built-in
+     * monitor lock.
+<img width="492" height="241" alt="3c764902e73c279b90d3cefccd97df4e" src="https://github.com/user-attachments/assets/2b8dc8fa-2f33-4917-aefd-90687ca589fa" />
+
