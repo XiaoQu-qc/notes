@@ -172,10 +172,15 @@ The returned {@link Condition} instance supports the same
      * Object#wait() wait}, {@link Object#notify notify}, and {@link
      * Object#notifyAll notifyAll}) when used with the built-in
      * monitor lock.
+     
 <img width="492" height="241" alt="3c764902e73c279b90d3cefccd97df4e" src="https://github.com/user-attachments/assets/2b8dc8fa-2f33-4917-aefd-90687ca589fa" />
 
 synchronized 的实现：是类似的
+
 <img width="550" height="391" alt="c85bffa84b258ef261e2fc7ff4a9e8f7" src="https://github.com/user-attachments/assets/14cc339b-93bc-44a7-9cbb-b8fe7678908e" />
 
 当线程尝试进入 synchronized 块时，如果无法获取锁，它会被放入对象的阻塞队列中。
 锁释放后，阻塞队列中的线程会被唤醒，尝试获取锁。
+
+<img width="285" height="227" alt="495ecc0b4a7748bcd1ea3471fa9db9e1" src="https://github.com/user-attachments/assets/337da97b-e8c2-4b46-86ff-f97bb88dcf16" />
+
