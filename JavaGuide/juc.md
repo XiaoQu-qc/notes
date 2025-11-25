@@ -173,6 +173,7 @@ The returned {@link Condition} instance supports the same
      * Object#notifyAll notifyAll}) when used with the built-in
      * monitor lock.
 <img width="492" height="241" alt="3c764902e73c279b90d3cefccd97df4e" src="https://github.com/user-attachments/assets/2b8dc8fa-2f33-4917-aefd-90687ca589fa" />
+
 synchronized 的实现：是类似的
 <img width="550" height="391" alt="c85bffa84b258ef261e2fc7ff4a9e8f7" src="https://github.com/user-attachments/assets/14cc339b-93bc-44a7-9cbb-b8fe7678908e" />
 
