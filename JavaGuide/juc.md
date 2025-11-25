@@ -185,3 +185,5 @@ synchronized 的实现：是类似的
 <img width="285" height="227" alt="495ecc0b4a7748bcd1ea3471fa9db9e1" src="https://github.com/user-attachments/assets/337da97b-e8c2-4b46-86ff-f97bb88dcf16" />
 
 locksupport。park方法是reentranlock最后调用将线程放入等待队列的操作
+
+为什么要加入阻塞或者等待队列，（线程切换），让他不能上cpu运行，不会被选到，不会进行无意义的线程切换，否则切换到他时条件不满足，还是不能执行。又要被切换下去
