@@ -184,3 +184,4 @@ synchronized 的实现：是类似的
 
 <img width="285" height="227" alt="495ecc0b4a7748bcd1ea3471fa9db9e1" src="https://github.com/user-attachments/assets/337da97b-e8c2-4b46-86ff-f97bb88dcf16" />
 
+locksupport。park方法是reentranlock最后调用将线程放入等待队列的操作
