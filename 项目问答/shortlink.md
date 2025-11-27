@@ -20,3 +20,8 @@ GOTO_SHORT_LINK_KEY这个跳转的缓存肯定是要删除的，因为如果是�
 
 ### 3.nurl.ink:8001/sad3j2  
 这是fullshortUrl ，@GetMapping("/{short-uri}")，也是一个跳转请求，服务器收到请求后，将short-uri作为参数找到原始链接并跳转
+
+### 4.
+restore只把基本信息丢给消息队列，ShortlinkstatsSaveConsumer在真正消费时（真正对数据库操作）也是要读锁的，虽然消费时是修改，但这里加读锁是ok的，因为即使对同一个fullshorturl消费，数据库是有行锁的，保证了原子性
+
+生产者传递的参数ShortLinkStatsRecordDTO不包括gid，（拿fullShortUrl查shortlink_goto表）gid 不再存储监控表，短链接修改就不再需要变更监控表大量 gid
