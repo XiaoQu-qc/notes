@@ -25,3 +25,30 @@ GOTO_SHORT_LINK_KEY这个跳转的缓存肯定是要删除的，因为如果是�
 restore只把基本信息丢给消息队列，ShortlinkstatsSaveConsumer在真正消费时（真正对数据库操作）也是要读锁的，虽然消费时是修改，但这里加读锁是ok的，因为即使对同一个fullshorturl消费，数据库是有行锁的，保证了原子性
 
 生产者传递的参数ShortLinkStatsRecordDTO不包括gid，（在ShortlinkstatsSaveConsumer在真正消费时时拿fullShortUrl查shortlink_goto表实时获取，因为此时在读锁范围里，消费时是需要gid的，代码中可以看到）gid 不再存储监控表，短链接修改就不再需要变更监控表大量 gid
+
+
+### 5.布隆过滤器比分布式锁性能高多少倍？
+
+### 6.消息队列
+我们把链接uv，pv这些量统计的业务用消息队列去做，因为这不是链接跳转的逻辑，并且数据统计还要加读锁，影响短链接跳转的处理时间
+之前shortlinkstat还没有拆除去的时候，修改的时候加上了写锁，这时读锁阻塞，影响性能，就要用delayqueue
+```
+if(!rLock.tryLock){
+  delayqueue(stats)
+}
+```
+在之后我们用消息队列后，虽然消费者在真正处理消费时也有写锁的判断，但是他不会向无界阻塞队列中添加线程时oom了，所以delayqueue也可以不用
+分析以下在消息队列中也使用dealyqueue的好处，当然就是不用等待写锁阻塞的时间嘛；如果不使用dealyqueue，那就是硬等阻塞时间
+```
+// 好 👍
+while (!lock.tryLock()) {
+    Thread.sleep(1); 
+}
+
+// 不好 👎
+```
+1. 选择合适的场景
+✅ 锁竞争不激烈
+✅ 期望获取锁的时间很短
+✅ 不想让线程进入WAITING状态
+while (!lock.tryLock()); // CPU 100%
