@@ -61,3 +61,6 @@ typedef struct clusterNode {} 这个nodes就是某个redis节点视角下它维�
 
 
 ### 10.随机周期性发送PING消息，每次挑选更长时间未收到其 PONG 消息的节点
+
+### 11.使用集群时
+mset和mget批量读取，写入命令会失效，原因是批量的key不在同一个节点上
