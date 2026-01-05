@@ -39,3 +39,25 @@ def _run_moire_cls(self, ctx, img):
         return False
 ```
 在mm.infer_engine.moire_cls_model_infer方法内部真正把请求发送到 Triton 推理服务并返回模型输出（通常为 numpy 数组
+
+### 3.判断扫描图像是否为文字场景
+```
+if self.custom_class and 'is_word' in self.custom_class:
+            is_word = self.custom_class['is_word']
+        else:
+            is_word = self._run_word_cls(ctx, img_bgr)
+            if not is_word:
+                points = self._run_quadrilateral(ctx, img_bgr)
+                if points is not None:
+                    # tmp_img_bgr = self._run_persperctive(img_bgr, points)
+                    tmp_img_bgr = self._run_cal_height_width(ctx, img_bgr, points)
+                    tmp_img = cv2.cvtColor(tmp_img_bgr, cv2.COLOR_BGR2RGB)
+                    is_word = self._run_word_cls(ctx, tmp_img_bgr) # bgr
+                    if self.use_quad:
+                        img_bgr = tmp_img_bgr
+                        img = tmp_img
+                quadrilateral_flag = True
+        class_result['is_word'] = is_word
+```
+值得注意的是，调用了按检测到的四边形将图像裁切模型进行图像四边形裁切，这样做除背景噪声：把干扰物（桌面、手、阴影）移出，减少误判。
+放大文本区域：原图中文本可能很小，裁切后文本占比变大，特征更明显。就有可能使之前不识别为文字场景，裁剪后识别为
