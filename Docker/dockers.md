@@ -12,3 +12,17 @@
 
 ### 4.
 <img width="827" height="521" alt="image" src="https://github.com/user-attachments/assets/f9a9d839-cde1-4660-bcbb-12105da810ec" />
+
+### 5
+docker build -f ./ Dockerfile  根据给出的Dockerfile构建镜像，Dockerfile文件中
+
+### 6.上下文路径
+上下文路径，是指 docker 在构建镜像，有时候想要使用到本机的文件（比如复制），docker build 命令得知这个路径后，会将路径下的所有内容打包。
+
+解析：由于 docker 的运行模式是 C/S。我们本机是 C，docker 引擎是 S。实际的构建过程是在 docker 引擎下完成的，所以这个时候无法用到我们本机的文件。这就需要把我们本机的指定目录下的文件一起打包提供给 docker 引擎使用。
+
+如果未说明最后一个参数，那么默认上下文路径就是 Dockerfile 所在的位置。
+
+### 7
+说白了怎么一步一步构建镜像就看dockerfile，而构建镜像的时候还要有本地程序代码
+![Uploading image.png…]()
