@@ -25,4 +25,5 @@ docker build -f ./ Dockerfile  根据给出的Dockerfile构建镜像，Dockerfil
 
 ### 7
 说白了怎么一步一步构建镜像就看dockerfile，而构建镜像的时候还要有本地程序代码
-![Uploading image.png…]()
+<img width="843" height="347" alt="image" src="https://github.com/user-attachments/assets/c256e4d9-c27a-44d7-a9b9-206f8c0e64b1" />
+
