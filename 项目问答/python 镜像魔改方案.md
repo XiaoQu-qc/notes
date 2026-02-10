@@ -53,9 +53,9 @@ RUN rm /usr/bin/python3 \
 参考这两个commit进行修改，如果是其他版本的python也是对这些地方修改，其中新增的decryptfileop.c就是实现对加密文件的解密。
 #### 4.提醒
 不同版本在魔改时可能会略有差异，要根据情况做出修改。拿魔改python3.8时来举例，在启动容器并运行.py文件时，发现.py文件并没有被正确的解密，python解释器无法运行加密的python文件导致报错，后来经过一系列的调试排查，发现在Python 启动入口Modules/main.c中_Py_wfopen(filename, L"rb")中并不调用解密函数decrypt_fopen()，需要替换为在相同位置python3.10使用的_Py_fopen_obj()，并且做一些适配性的修改
-3.构建魔改python3.8的基础镜像
+### 3.构建魔改python3.8的基础镜像
 获取基础镜像产物hub-mirror.wps.cn/ai-app/ubuntu_crt_python:20260127-035912
-4.将产物镜像作为基础镜像
+### 4.将产物镜像作为基础镜像
 ```
 FROM hub-mirror.wps.cn/ai-app/ubuntu_crt_python:20260127-035912
 
